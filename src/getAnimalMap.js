@@ -23,7 +23,7 @@ function getAnimalMap(options) {
   if (options === undefined) {
     return animalMap;
   }
-  const namesIncluded = (animalMap) => ({
+  const getNamesIncluded = (animalMap) => ({
     NE: animalMap['NE']
       .map((item) => species.find((value) => value.name === item))
       .map((item) => ({
@@ -45,55 +45,114 @@ function getAnimalMap(options) {
         [`${item.name}`]: item.residents.map((resident) => resident.name),
       })),
   });
-  const namesSorted = (animalMap) => ({
-    NE: animalMap['NE'].sort(),
-    NW: animalMap['NW'].sort(),
-    SE: animalMap['SE'].sort(),
-    SW: animalMap['SW'].sort(),
+  const getNamesSorted = (animalMap) => ({
+    NE: animalMap['NE'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return { [`${speciesName}`]: Object.values(obj)[0].sort() };
+    }),
+    NW: animalMap['NW'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return { [`${speciesName}`]: Object.values(obj)[0].sort() };
+    }),
+    SE: animalMap['SE'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return { [`${speciesName}`]: Object.values(obj)[0].sort() };
+    }),
+    SW: animalMap['SW'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return { [`${speciesName}`]: Object.values(obj)[0].sort() };
+    }),
   });
-  // TODO: Names by Biological Sex Function
-  const namesByBiologicalSex = (animalMap, sex) => ({
-    NE: animalMap['NE']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => item.residents.filter((resident) => resident.sex === sex))
-      .name,
-    NW: animalMap['NW']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => item.residents.filter((resident) => resident.sex === sex)),
-    SE: animalMap['SE']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => item.residents.filter((resident) => resident.sex === sex)),
-    SW: animalMap['SW']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => item.residents.filter((resident) => resident.sex === sex)),
+  const getNamesByBiologicalSex = (animalMap, sex) => ({
+    NE: animalMap['NE'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return {
+        [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
+          let animalName = animal;
+          return (
+            species
+              .find((item) => item.name === speciesName)
+              .residents.find((resident) => resident.name === animalName)
+              .sex === sex
+          );
+        }),
+      };
+    }),
+    NW: animalMap['NW'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return {
+        [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
+          let animalName = animal;
+          return (
+            species
+              .find((item) => item.name === speciesName)
+              .residents.find((resident) => resident.name === animalName)
+              .sex === sex
+          );
+        }),
+      };
+    }),
+    SE: animalMap['SE'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return {
+        [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
+          let animalName = animal;
+          return (
+            species
+              .find((item) => item.name === speciesName)
+              .residents.find((resident) => resident.name === animalName)
+              .sex === sex
+          );
+        }),
+      };
+    }),
+    SW: animalMap['SW'].map((obj) => {
+      let speciesName = Object.keys(obj)[0];
+      return {
+        [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
+          let animalName = animal;
+          return (
+            species
+              .find((item) => item.name === speciesName)
+              .residents.find((resident) => resident.name === animalName)
+              .sex === sex
+          );
+        }),
+      };
+    }),
   });
-
-  if (
-    Object.entries(options).find(
-      (item) =>
-        item[0] === 'sex' && (item[1] === 'female' || item[1] === 'male')
-    ) !== undefined
-  ) {
-    const sex = options.sex;
-    animalMap = namesByBiologicalSex(animalMap, sex);
-  }
-  if (
-    Object.entries(options).find(
-      (item) => item[0] === 'sorted' && item[1] === true
-    ) !== undefined
-  ) {
-    animalMap = namesSorted(animalMap);
-  }
+  // Include Names: true
   if (
     Object.entries(options).find(
       (item) => item[0] === 'includeNames' && item[1] === true
     ) !== undefined
   ) {
-    animalMap = namesIncluded(animalMap);
+    animalMap = getNamesIncluded(animalMap);
   }
+  // Sex: male/female && Include Names: true
+  if (
+    Object.entries(options).find(
+      (item) =>
+        item[0] === 'sex' && (item[1] === 'female' || item[1] === 'male')
+    ) !== undefined &&
+    Object.entries(options).find(
+      (item) => item[0] === 'includeNames' && item[1] === true
+    ) !== undefined
+  ) {
+    animalMap = getNamesByBiologicalSex(animalMap, options.sex);
+  } // Sorted: true && Include Names: true
+  if (
+    Object.entries(options).find(
+      (item) => item[0] === 'sorted' && item[1] === true
+    ) !== undefined &&
+    Object.entries(options).find(
+      (item) => item[0] === 'includeNames' && item[1] === true
+    ) !== undefined
+  ) {
+    animalMap = getNamesSorted(animalMap);
+  }
+
   return animalMap;
 }
-
-console.log(getAnimalMap({ sex: 'male' }));
 
 module.exports = getAnimalMap;
