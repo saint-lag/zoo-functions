@@ -14,13 +14,12 @@ function calculateEntry(entrants) {
   // seu código aqui
   if (entrants === undefined || Object.entries(entrants).length === 0) {
     return 0;
-  } else {
-    return (
-      Object.values(countEntrants(entrants))[0] * 20.99 +
-      Object.values(countEntrants(entrants))[1] * 49.99 +
-      Object.values(countEntrants(entrants))[2] * 24.99
-    );
   }
+  return (
+    Object.values(countEntrants(entrants))[0] * 20.99 +
+    Object.values(countEntrants(entrants))[1] * 49.99 +
+    Object.values(countEntrants(entrants))[2] * 24.99
+  );
 }
 
 module.exports = { calculateEntry, countEntrants };

@@ -24,51 +24,51 @@ function getAnimalMap(options) {
     return animalMap;
   }
   const getNamesIncluded = (animalMap) => ({
-    NE: animalMap['NE']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => ({
-        [`${item.name}`]: item.residents.map((resident) => resident.name),
-      })),
-    NW: animalMap['NW']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => ({
-        [`${item.name}`]: item.residents.map((resident) => resident.name),
-      })),
-    SE: animalMap['SE']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => ({
-        [`${item.name}`]: item.residents.map((resident) => resident.name),
-      })),
-    SW: animalMap['SW']
-      .map((item) => species.find((value) => value.name === item))
-      .map((item) => ({
-        [`${item.name}`]: item.residents.map((resident) => resident.name),
-      })),
+    NE: animalMap.NE.map((item) =>
+      species.find((value) => value.name === item)
+    ).map((item) => ({
+      [`${item.name}`]: item.residents.map((resident) => resident.name),
+    })),
+    NW: animalMap.NW.map((item) =>
+      species.find((value) => value.name === item)
+    ).map((item) => ({
+      [`${item.name}`]: item.residents.map((resident) => resident.name),
+    })),
+    SE: animalMap.SE.map((item) =>
+      species.find((value) => value.name === item)
+    ).map((item) => ({
+      [`${item.name}`]: item.residents.map((resident) => resident.name),
+    })),
+    SW: animalMap.SW.map((item) =>
+      species.find((value) => value.name === item)
+    ).map((item) => ({
+      [`${item.name}`]: item.residents.map((resident) => resident.name),
+    })),
   });
   const getNamesSorted = (animalMap) => ({
-    NE: animalMap['NE'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    NE: animalMap.NE.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
-    NW: animalMap['NW'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    NW: animalMap.NW.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
-    SE: animalMap['SE'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    SE: animalMap.SE.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
-    SW: animalMap['SW'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    SW: animalMap.SW.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
   });
   const getNamesByBiologicalSex = (animalMap, sex) => ({
-    NE: animalMap['NE'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    NE: animalMap.NE.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
-          let animalName = animal;
+          const animalName = animal;
           return (
             species
               .find((item) => item.name === speciesName)
@@ -78,11 +78,11 @@ function getAnimalMap(options) {
         }),
       };
     }),
-    NW: animalMap['NW'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    NW: animalMap.NW.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
-          let animalName = animal;
+          const animalName = animal;
           return (
             species
               .find((item) => item.name === speciesName)
@@ -92,11 +92,11 @@ function getAnimalMap(options) {
         }),
       };
     }),
-    SE: animalMap['SE'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    SE: animalMap.SE.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
-          let animalName = animal;
+          const animalName = animal;
           return (
             species
               .find((item) => item.name === speciesName)
@@ -106,11 +106,11 @@ function getAnimalMap(options) {
         }),
       };
     }),
-    SW: animalMap['SW'].map((obj) => {
-      let speciesName = Object.keys(obj)[0];
+    SW: animalMap.SW.map((obj) => {
+      const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
-          let animalName = animal;
+          const animalName = animal;
           return (
             species
               .find((item) => item.name === speciesName)

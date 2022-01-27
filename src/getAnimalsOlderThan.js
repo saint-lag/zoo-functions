@@ -4,7 +4,7 @@ const data = require('../data/zoo_data');
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   return species
-    .find((species) => animal === species.name)
+    .find((obj) => animal === obj.name)
     .residents.every((resident) => resident.age > age);
 }
 

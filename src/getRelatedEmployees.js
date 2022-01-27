@@ -7,7 +7,7 @@ function isManager(id) {
   const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
   const burlId = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
   const managers = [stephanieId, olaId, burlId];
-  return managers.find((manager) => manager === id) === id ? true : false;
+  return managers.find((manager) => manager === id) === id;
 }
 
 function getRelatedEmployees(managerId) {
@@ -16,7 +16,7 @@ function getRelatedEmployees(managerId) {
   if (isManager(managerId) === false) {
     throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
   } else {
-    resultArr = employees.map((employee) => {
+    const resultArr = employees.map((employee) => {
       if (
         employee.managers.find((manager) => manager === managerId) === managerId
       ) {
