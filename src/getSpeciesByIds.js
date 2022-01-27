@@ -3,8 +3,8 @@ const data = require('../data/zoo_data');
 
 function getSpeciesByIds(ids) {
   // seu código aqui
-  const idsArr = Array.from(arguments);
-  if (arguments === '' || ids === undefined) {
+  const idsArr = Array.from(...ids);
+  if (ids === '' || ids === undefined) {
     return [];
   }
   if (idsArr.length >= 1) {

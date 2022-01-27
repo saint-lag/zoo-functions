@@ -16,9 +16,9 @@ function calculateEntry(entrants) {
     return 0;
   }
   return (
-    Object.values(countEntrants(entrants))[0] * 20.99 +
-    Object.values(countEntrants(entrants))[1] * 49.99 +
-    Object.values(countEntrants(entrants))[2] * 24.99
+    Object.values(countEntrants(entrants))[0] * 20.99
+    + Object.values(countEntrants(entrants))[1] * 49.99
+    + Object.values(countEntrants(entrants))[2] * 24.99
   );
 }
 

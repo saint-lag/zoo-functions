@@ -8,11 +8,11 @@ function getOldestFromFirstSpecies(id) {
   const targetEmployeeObj = employees.find((employee) => employee.id === id);
   const firstSpeciesInChargeId = targetEmployeeObj.responsibleFor[0];
   const firstSpeciesObj = species.find(
-    (item) => item.id === firstSpeciesInChargeId
+    (item) => item.id === firstSpeciesInChargeId,
   );
 
   const reducer = (previous, current) =>
-    current.age > previous.age ? current : previous;
+    (current.age > previous.age ? current : previous);
 
   const { name, sex, age } = firstSpeciesObj.residents.reduce(reducer);
 

@@ -5,10 +5,10 @@ function getEmployeeByName(employeeName) {
   // seu código aqui
   return employeeName !== undefined
     ? employees.find(
-        (employee) =>
-          employeeName === employee.firstName ||
-          employeeName === employee.lastName
-      )
+      (employee) =>
+        employeeName === employee.firstName
+          || employeeName === employee.lastName,
+    )
     : {};
 }
 

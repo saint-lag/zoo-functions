@@ -1,8 +1,9 @@
+/* eslint-disable sonarjs/no-identical-functions */
 const data = require('../data/zoo_data');
 
 function getAnimalMap(options) {
   // seu código aqui
-  const { species } = require('../data/zoo_data');
+  const { species } = data;
 
   const baseMap = {
     NE: species
@@ -23,48 +24,44 @@ function getAnimalMap(options) {
   if (options === undefined) {
     return animalMap;
   }
-  const getNamesIncluded = (animalMap) => ({
-    NE: animalMap.NE.map((item) =>
-      species.find((value) => value.name === item)
-    ).map((item) => ({
+  const getNamesIncluded = (mapAnimal) => ({
+    NE: mapAnimal.NE.map((item) =>
+      species.find((value) => value.name === item)).map((item) => ({
       [`${item.name}`]: item.residents.map((resident) => resident.name),
     })),
-    NW: animalMap.NW.map((item) =>
-      species.find((value) => value.name === item)
-    ).map((item) => ({
+    NW: mapAnimal.NW.map((item) =>
+      species.find((value) => value.name === item)).map((item) => ({
       [`${item.name}`]: item.residents.map((resident) => resident.name),
     })),
-    SE: animalMap.SE.map((item) =>
-      species.find((value) => value.name === item)
-    ).map((item) => ({
+    SE: mapAnimal.SE.map((item) =>
+      species.find((value) => value.name === item)).map((item) => ({
       [`${item.name}`]: item.residents.map((resident) => resident.name),
     })),
-    SW: animalMap.SW.map((item) =>
-      species.find((value) => value.name === item)
-    ).map((item) => ({
+    SW: mapAnimal.SW.map((item) =>
+      species.find((value) => value.name === item)).map((item) => ({
       [`${item.name}`]: item.residents.map((resident) => resident.name),
     })),
   });
-  const getNamesSorted = (animalMap) => ({
-    NE: animalMap.NE.map((obj) => {
+  const getNamesSorted = (mapAnimal) => ({
+    NE: mapAnimal.NE.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
-    NW: animalMap.NW.map((obj) => {
+    NW: mapAnimal.NW.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
-    SE: animalMap.SE.map((obj) => {
+    SE: mapAnimal.SE.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
-    SW: animalMap.SW.map((obj) => {
+    SW: mapAnimal.SW.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return { [`${speciesName}`]: Object.values(obj)[0].sort() };
     }),
   });
-  const getNamesByBiologicalSex = (animalMap, sex) => ({
-    NE: animalMap.NE.map((obj) => {
+  const getNamesByBiologicalSex = (mapAnimal, sex) => ({
+    NE: mapAnimal.NE.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
@@ -78,7 +75,7 @@ function getAnimalMap(options) {
         }),
       };
     }),
-    NW: animalMap.NW.map((obj) => {
+    NW: mapAnimal.NW.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
@@ -92,7 +89,7 @@ function getAnimalMap(options) {
         }),
       };
     }),
-    SE: animalMap.SE.map((obj) => {
+    SE: mapAnimal.SE.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
@@ -106,7 +103,7 @@ function getAnimalMap(options) {
         }),
       };
     }),
-    SW: animalMap.SW.map((obj) => {
+    SW: mapAnimal.SW.map((obj) => {
       const speciesName = Object.keys(obj)[0];
       return {
         [`${speciesName}`]: Object.values(obj)[0].filter((animal) => {
@@ -124,7 +121,7 @@ function getAnimalMap(options) {
   // Include Names: true
   if (
     Object.entries(options).find(
-      (item) => item[0] === 'includeNames' && item[1] === true
+      (item) => item[0] === 'includeNames' && item[1] === true,
     ) !== undefined
   ) {
     animalMap = getNamesIncluded(animalMap);
@@ -133,20 +130,20 @@ function getAnimalMap(options) {
   if (
     Object.entries(options).find(
       (item) =>
-        item[0] === 'sex' && (item[1] === 'female' || item[1] === 'male')
-    ) !== undefined &&
-    Object.entries(options).find(
-      (item) => item[0] === 'includeNames' && item[1] === true
+        item[0] === 'sex' && (item[1] === 'female' || item[1] === 'male'),
+    ) !== undefined
+    && Object.entries(options).find(
+      (item) => item[0] === 'includeNames' && item[1] === true,
     ) !== undefined
   ) {
     animalMap = getNamesByBiologicalSex(animalMap, options.sex);
   } // Sorted: true && Include Names: true
   if (
     Object.entries(options).find(
-      (item) => item[0] === 'sorted' && item[1] === true
-    ) !== undefined &&
-    Object.entries(options).find(
-      (item) => item[0] === 'includeNames' && item[1] === true
+      (item) => item[0] === 'sorted' && item[1] === true,
+    ) !== undefined
+    && Object.entries(options).find(
+      (item) => item[0] === 'includeNames' && item[1] === true,
     ) !== undefined
   ) {
     animalMap = getNamesSorted(animalMap);

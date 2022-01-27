@@ -21,11 +21,11 @@ function getRelatedEmployees(managerId) {
         employee.managers.find((manager) => manager === managerId) === managerId
       ) {
         return `${employee.firstName} ${employee.lastName}`;
-      }
-    });
+    } 
     return resultArr.filter((result) => result !== undefined);
   }
 }
+
 
 console.log(getRelatedEmployees('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 

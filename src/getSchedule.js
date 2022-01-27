@@ -11,26 +11,26 @@ function getSchedule(scheduleTarget) {
   const officeHour = (day) =>
     `Open from ${hours[`${day}`].open}am until ${hours[`${day}`].close}pm`;
   const exhibition = (day) => {
-    let scheduleSpecies = species
+    const scheduleSpecies = species
       .filter(
         (animal) =>
-          animal.availability.find((item) => item === `${day}`) !== undefined
+          animal.availability.find((item) => item === `${day}`) !== undefined,
       )
       .map((animal) => animal.name);
     return scheduleSpecies;
   };
 
   // Local Variables:
-  let schedule = undefined;
+  let schedule;
 
   // Conditionals:
   // Target is UNDEFINED or a different string than any of available ANIMALS names or WEEKDAYS
   if (
-    scheduleTarget === undefined ||
-    (weekdays.find((weekday) => weekday === scheduleTarget) !==
-      scheduleTarget &&
-      animalsNames.find((animal) => animal === scheduleTarget) !==
-        scheduleTarget)
+    scheduleTarget === undefined
+    || (weekdays.find((weekday) => weekday === scheduleTarget)
+      !== scheduleTarget
+      && animalsNames.find((animal) => animal === scheduleTarget)
+        !== scheduleTarget)
   ) {
     schedule = weekdays.map((weekday) => {
       const officeHourResult = officeHour(`${weekday}`);
@@ -50,7 +50,7 @@ function getSchedule(scheduleTarget) {
       };
     });
     return Object.assign({}, ...schedule);
-  } else if (
+  } if (
     weekdays.find((weekday) => weekday === scheduleTarget) === scheduleTarget
   ) {
     const officeHourResult = officeHour(scheduleTarget);
@@ -67,7 +67,7 @@ function getSchedule(scheduleTarget) {
             : 'The zoo will be closed!',
       },
     };
-  } else if (
+  } if (
     animalsNames.find((animal) => animal === scheduleTarget) === scheduleTarget
   ) {
     return species.find((obj) => obj.name === scheduleTarget).availability;
