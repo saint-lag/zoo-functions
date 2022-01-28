@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable sonarjs/cognitive-complexity */
 const data = require('../data/zoo_data');
 

@@ -11,8 +11,6 @@ function isManager(id) {
 }
 
 function getRelatedEmployees(managerId) {
-  // seu código aqui
-
   if (isManager(managerId) === false) {
     throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
   } else {
@@ -21,11 +19,12 @@ function getRelatedEmployees(managerId) {
         employee.managers.find((manager) => manager === managerId) === managerId
       ) {
         return `${employee.firstName} ${employee.lastName}`;
-    } 
+      }
+      return undefined;
+    });
     return resultArr.filter((result) => result !== undefined);
   }
 }
-
 
 console.log(getRelatedEmployees('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
