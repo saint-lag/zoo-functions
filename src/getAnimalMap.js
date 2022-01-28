@@ -1,5 +1,5 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable sonarjs/cognitive-complexity */
+// /* eslint-disable max-lines-per-function */
+// /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable complexity */
 const data = require('../data/zoo_data');
 
@@ -59,39 +59,42 @@ function getNamesSorted(mapAnimal) {
   return result;
 }
 
+// Cases:
+function cases(options) {
+  // Include Names: true
+  // Sex: male/female && Include Names: true
+  // Sorted: true && Include Names: true
+  const result = [];
+  if (Object.entries(options).find(
+    (item) => item[0] === 'includeNames' && item[1] === true,
+  ) !== undefined) { result.push('includeNames'); }
+  if (Object.entries(options).find((item) => item[0] === 'sex'
+  && (item[1] === 'female' || item[1] === 'male')) !== undefined
+      && Object.entries(options).find((item) => item[0] === 'includeNames'
+      && item[1] === true) !== undefined) {
+    result.push('sex');
+  } if (Object.entries(options).find((item) => item[0] === 'sorted'
+  && item[1] === true) !== undefined
+      && Object.entries(options).find((item) => item[0] === 'includeNames'
+      && item[1] === true) !== undefined) {
+    result.push('sorted');
+  } return result;
+}
+
 function getAnimalMap(options) {
   // Default Animal Map is the Base Map:
   let animalMap = baseMap;
   if (options === undefined) {
     return animalMap;
   }
-  // Include Names: true
-  if (
-    Object.entries(options).find(
-      (item) => item[0] === 'includeNames' && item[1] === true,
-    ) !== undefined
-  ) {
+  const resultCases = cases(options);
+  if (resultCases.includes('includeNames') === true) {
     animalMap = getNamesIncluded(animalMap);
   }
-  // Sex: male/female && Include Names: true
-  if (
-    Object.entries(options).find(
-      (item) =>
-        item[0] === 'sex' && (item[1] === 'female' || item[1] === 'male'),
-    ) !== undefined
-    && Object.entries(options).find(
-      (item) => item[0] === 'includeNames' && item[1] === true,
-    ) !== undefined
-  ) {
+  if (resultCases.includes('sex') === true) {
     animalMap = getNamesByBiologicalSex(animalMap, options.sex);
-  } // Sorted: true && Include Names: true
-  if (
-    Object.entries(options).find(
-      (item) => item[0] === 'sorted' && item[1] === true,
-    ) !== undefined && Object.entries(options).find(
-      (item) => item[0] === 'includeNames' && item[1] === true,
-    ) !== undefined
-  ) {
+  }
+  if (resultCases.includes('sorted') === true) {
     animalMap = getNamesSorted(animalMap);
   }
   return animalMap;
