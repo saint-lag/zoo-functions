@@ -1,6 +1,5 @@
-// /* eslint-disable max-lines-per-function */
 // /* eslint-disable sonarjs/cognitive-complexity */
-/* eslint-disable complexity */
+// /* eslint-disable complexity */
 const data = require('../data/zoo_data');
 
 const { species } = data;
@@ -65,20 +64,15 @@ function cases(options) {
   // Sex: male/female && Include Names: true
   // Sorted: true && Include Names: true
   const result = [];
-  if (Object.entries(options).find(
-    (item) => item[0] === 'includeNames' && item[1] === true,
-  ) !== undefined) { result.push('includeNames'); }
-  if (Object.entries(options).find((item) => item[0] === 'sex'
-  && (item[1] === 'female' || item[1] === 'male')) !== undefined
-      && Object.entries(options).find((item) => item[0] === 'includeNames'
-      && item[1] === true) !== undefined) {
-    result.push('sex');
-  } if (Object.entries(options).find((item) => item[0] === 'sorted'
-  && item[1] === true) !== undefined
-      && Object.entries(options).find((item) => item[0] === 'includeNames'
-      && item[1] === true) !== undefined) {
-    result.push('sorted');
-  } return result;
+  if (options.includeNames) {
+    result.push('includeNames'); if (options.sex) {
+      result.push('sex');
+    } if (options.sorted) {
+      result.push('sorted');
+    }
+  }
+  console.log(result);
+  return result;
 }
 
 function getAnimalMap(options) {
@@ -99,7 +93,5 @@ function getAnimalMap(options) {
   }
   return animalMap;
 }
-
-console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
 
 module.exports = getAnimalMap;

@@ -1,81 +1,71 @@
-/* eslint-disable sonarjs/cognitive-complexity */
-/* eslint-disable complexity */
-/* eslint-disable max-lines-per-function */
-const data = require('../data/zoo_data');
+// /* eslint-disable sonarjs/cognitive-complexity */
+// // /* eslint-disable complexity */
+// // /* eslint-disable max-lines-per-function */
+// const data = require('../data/zoo_data');
 
-function getSchedule(scheduleTarget) {
-  // Imported DATA:
-  const { hours } = data;
-  const { species } = data;
+// const { hours } = data;
+// const { species } = data;
+// const weekdays = Object.keys(hours);
+// const animalsNames = species.map((item) => item.name);
 
-  // Local Constants:
-  const animalsNames = species.map((item) => item.name);
-  const weekdays = Object.keys(hours);
-  const officeHour = (day) =>
-    `Open from ${hours[`${day}`].open}am until ${hours[`${day}`].close}pm`;
-  const exhibition = (day) => {
-    const scheduleSpecies = species
-      .filter(
-        (animal) =>
-          animal.availability.find((item) => item === `${day}`) !== undefined,
-      )
-      .map((animal) => animal.name);
-    return scheduleSpecies;
-  };
+// const officeHour = (day) =>
+//   `Open from ${hours[`${day}`].open}am until ${hours[`${day}`].close}pm`;
+// const exhibition = (day) => {
+//   const scheduleSpecies = species
+//     .filter(
+//       (animal) =>
+//         animal.availability.find((item) => item === `${day}`) !== undefined,
+//     )
+//     .map((animal) => animal.name);
+//   return scheduleSpecies;
+// };
 
-  // Local Variables:
-  let schedule;
+// function getSchedule(scheduleTarget) {
+//   // Local Variables:
+//   let schedule;
 
-  // Conditionals:
-  // Target is UNDEFINED or a different string than any of available ANIMALS names or WEEKDAYS
-  if (
-    scheduleTarget === undefined
-    || (weekdays.find((weekday) => weekday === scheduleTarget)
-      !== scheduleTarget
-      && animalsNames.find((animal) => animal === scheduleTarget)
-        !== scheduleTarget)
-  ) {
-    schedule = weekdays.map((weekday) => {
-      const officeHourResult = officeHour(`${weekday}`);
-      const exhibitionResult = exhibition(`${weekday}`);
+//   if (
+//     weekdays.includes(scheduleTarget)
+//   ) {
+//     const officeHourResult = officeHour(scheduleTarget);
+//     const exhibitionResult = exhibition(scheduleTarget);
+//     return {
+//       [`${scheduleTarget}`]: {
+//         officeHour:
+//           officeHourResult !== 'Open from 0am until 0pm'
+//             ? officeHourResult
+//             : 'CLOSED',
+//         exhibition:
+//           exhibitionResult.length !== 0
+//             ? exhibitionResult
+//             : 'The zoo will be closed!',
+//       },
+//     };
+//   } if (
+//     animalsNames.includes(scheduleTarget)
+//   ) {
+//     return species.find((obj) => obj.name === scheduleTarget).availability;
+//   } if (scheduleTarget === undefined) {
+//     schedule = weekdays.map((weekday) => {
+//       const officeHourResult = officeHour(`${weekday}`);
+//       const exhibitionResult = exhibition(`${weekday}`);
 
-      return {
-        [`${weekday}`]: {
-          officeHour:
-            officeHourResult !== 'Open from 0am until 0pm'
-              ? officeHourResult
-              : 'CLOSED',
-          exhibition:
-            exhibitionResult.length !== 0
-              ? exhibitionResult
-              : 'The zoo will be closed!',
-        },
-      };
-    });
-    return Object.assign({}, ...schedule);
-  } if (
-    weekdays.find((weekday) => weekday === scheduleTarget) === scheduleTarget
-  ) {
-    const officeHourResult = officeHour(scheduleTarget);
-    const exhibitionResult = exhibition(scheduleTarget);
-    return {
-      [`${scheduleTarget}`]: {
-        officeHour:
-          officeHourResult !== 'Open from 0am until 0pm'
-            ? officeHourResult
-            : 'CLOSED',
-        exhibition:
-          exhibitionResult.length !== 0
-            ? exhibitionResult
-            : 'The zoo will be closed!',
-      },
-    };
-  } if (
-    animalsNames.find((animal) => animal === scheduleTarget) === scheduleTarget
-  ) {
-    return species.find((obj) => obj.name === scheduleTarget).availability;
-  }
-}
-console.log(getSchedule('Monday'));
+//       return {
+//         [`${weekday}`]: {
+//           officeHour:
+//                 officeHourResult !== 'Open from 0am until 0pm'
+//                   ? officeHourResult
+//                   : 'CLOSED',
+//           exhibition:
+//                 exhibitionResult.length !== 0
+//                   ? exhibitionResult
+//                   : 'The zoo will be closed!',
+//         },
+//       };
+//     });
+//     return Object.assign({}, ...schedule);
+//   }
+// }
+// console.log(getSchedule('Monday'));
 
-module.exports = getSchedule;
+// module.exports = getSchedule;
